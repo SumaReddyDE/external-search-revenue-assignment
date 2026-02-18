@@ -443,3 +443,17 @@ For the code review / walkthrough call, there is a business and architecture pre
 - Engineering practices, scalability considerations, and next steps
 
 **Deck:** `docs/SearchKeywordRevenue_Presentation.pptx`
+
+---
+
+## 14. Output
+
+A sample report generated from the provided input (`hit_data.tsv`) is checked into the repo:
+
+- `output/2026-02-18_SearchKeywordPerformance.tab`
+
+It should contain (sorted by revenue desc):
+
+Search Engine Domain	Search Keyword	Revenue
+- `google.com    ipod    480.00`
+- `bing.com      zune    250.00`

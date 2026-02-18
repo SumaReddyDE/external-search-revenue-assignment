@@ -4,9 +4,6 @@ __pycache__/
 *.pyc
 .DS_Store
 
-# Local output
-output/
-
 # Terraform
 *.tfstate
 *.tfstate.*
