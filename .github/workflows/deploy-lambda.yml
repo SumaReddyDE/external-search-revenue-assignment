@@ -1,0 +1,44 @@
+name: Deploy Lambda (external-search-revenue-etl)
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "infra/handler.py"
+      - "src/external_search_revenue/**"
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::747296375035:role/gha-external-search-revenue-deploy
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Build Lambda package
+        run: |
+          rm -rf build_lambda
+          mkdir -p build_lambda
+
+          cp infra/handler.py build_lambda/handler.py
+          cp -R src/external_search_revenue build_lambda/external_search_revenue
+
+          cd build_lambda
+          zip -r ../lambda_package.zip .
+
+      - name: Deploy Lambda code
+        run: |
+          aws lambda update-function-code \
+            --function-name external-search-revenue-etl \
+            --zip-file fileb://lambda_package.zip

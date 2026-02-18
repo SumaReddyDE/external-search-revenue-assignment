@@ -1,0 +1,28 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# Local output
+output/
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+infra/.terraform/
+infra/.terraform.lock.hcl
+
+# Lambda build artifacts
+infra/lambda_stub.zip
+infra/lambda_package.zipdata/*.tsv
+
+# IDE/editor settings
+.vscode/
+
+#input
+data/hit_data.tsv
+
+#scripts
+scripts/inspect_input.py
